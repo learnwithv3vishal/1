@@ -1,0 +1,18 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# Route /api/* to Netlify Functions (e.g. /api/payu-initiate -> /.netlify/functions/payu-initiate)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+# SPA fallback — every other route serves index.html so React Router can handle it.
+# This is what prevents 404s on /thank-you, /courses, etc. when accessed directly.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
